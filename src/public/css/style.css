@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300 ;1,400;1,500;1,600;1,700&family=Dancing+Script:wght@400..700&family=Jersey+25&family=Pacifico&display=swap');
+
+body {
+    font-family: 'Pacifico';
+    background-color: #062942;
+}
+
+.barritahome{
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+/*HEADER*/
+
+.tamLogo {
+    width: 150px;
+}
+
+.fuentesNav {
+    font-size: 1.5rem;
+    padding: 10px;
+}
+
+.encabezado {
+    /* background-color: bisque; */
+    border-top: solid 20px #062942;
+    /* border-bottom: solid 1px #c1101a; */
+    margin-bottom: 30px;
+}
+.btn-menu{
+    background-color: rgb(125, 128, 182);
+}
+.cart-icon{
+    color: white;
+}
+
+nav li a {
+    text-transform: uppercase;
+    text-decoration: none;
+    margin: 15px;
+    color: rgb(249, 247, 247);
+    border-left: 1px solid rgb(249, 250, 250);
+    border-right: 1px solid rgb(249, 250, 250);
+    padding: 0 15px;
+    font-size: 15px;
+}
+
+
+
+a:hover {
+    background-color: #4544a2;
+    color: #fafafa;
+}
+
+.text-center{
+    color:white;
+}
+
+/* .carousel-item img{
+    width: 1000px;
+    height: 500px;
+    align-content: center;
+} */
+
+/* PRODUCTOS */
+
+.tituloProductos {
+    background-color: #062942;
+    color: #fafafa;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 20px;
+}
+
+.tituloProductos h2 {
+    font-size: 35px;
+}
+
+
+/*CARDS*/
+
+/* .card {
+    margin-bottom: 20px; 
+} */
+
+.colorBtn {
+    background-color: rgb(16, 16, 68);
+    color: #fafafa;
+    font-size: 18px;
+}
+
+.colorBtn:hover {
+    background-color: #4544a2;
+    color: #fafafa;
+}
+
+
+/*Cards*/
+
+.card-img-top {
+    height: 200px;
+    /* Ajusta la altura deseada */
+    object-fit: cover;
+    object-position: center top;
+}
+
+/*Pagination*/
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+}
+.pagination-link {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 16px;
+    background-color: #4544a2;
+    border-radius: 4px;
+    margin: 5px;
+    display: inline-block;
+    text-align: center;
+}
+
+.pagination-link:hover {
+    background-color: #5d5bae;
+}
+
+/* Estilos del formulario de inicio de sesión */
+h1 {
+    text-align: center;
+}
+
+.formulario {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.inputMessi {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.btnMios {
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(16, 16, 68);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btnMios:hover {
+    background-color: #4544a2;
+}
+
+i {
+    font-size: 35px;
+}

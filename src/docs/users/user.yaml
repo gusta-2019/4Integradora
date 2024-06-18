@@ -1,0 +1,132 @@
+paths:
+  /api/users:
+    get:
+      summary : Obtiene todos los usuarios
+      tags: 
+        - Users
+      security:
+        - cookieAuth: []
+      responses:
+        "200":
+          description: Los productos se obtuvieron con éxito.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/User"
+        "500":
+          description: Error interno del servidor
+  /api/users/{uid}:
+    get:
+      summary : Buscar por id un usuario
+      tags: 
+        - Users
+      security:
+        - cookieAuth: []
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        description: Id del usuario a solicitar.
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: El producto fue encontrado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/User"
+        "500":
+          description: Error interno del servidor
+    put:
+      summary : Actualizar usuario por id
+      tags: 
+        - Users
+      security:
+        - cookieAuth: []
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        description: Id del usuario a solicitar.
+        schema:
+          $type: String
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBody/updateUser"  
+      responses:
+        "200":
+          description: El usuario fue actualizado exitosamente
+        "500":
+          description: Error interno del servidor
+
+
+components:
+  schemas:
+    User: 
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id de usuario generado automaticamente por mongoDB
+        firtsName:
+          type: String
+          description: Primer nombre del usuario
+        lastName: 
+          type: String
+          description: Apellido del usuario
+        email:
+          type: String
+          description: email del usuario
+        password:
+          type: String
+          description: password del usuario
+        cart:
+          type: ObjectID
+          description: Id generado automaticamente por mongoDB
+        age:
+          type: Number
+          description: Edad del usuario
+        role:
+          type: String
+          description: Rol de usuario
+      example:
+        _id: ObjectId('36436jc565745w9020t')
+        firtsName: Andres
+        lastName: SoyYo
+        email: andy@gmail.com
+        password: baires123
+        cart: ObjectId('3611wsr345w9020t')
+        age: 50
+        role: premium
+  requestBody:
+    updateUser:
+      type: object
+      properties:
+        firtsName:
+          type: String
+          description: Nombre del usuario
+        lastName: 
+          type: String
+          description: apellido del usuario
+        email:
+          type: Number
+          description: email del usuario
+        password:
+          type: String
+          description: password del usuario
+        age:
+          type: Number
+          description: Edad del usuario
+      example:
+        firtsName: federico
+        lastName: gonzales
+        email: fedegonzales@gmail.com
+        age: 50
+        password: gonzales
+        birthDate: 01-02-1998

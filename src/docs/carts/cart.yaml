@@ -1,0 +1,160 @@
+paths:
+  /api/carts/:
+    get:
+      summary : Obtener carrito
+      tags: 
+        - Carts
+      security:
+        - cookieAuth: []
+      responses:
+        "200":
+          description: Carrito encontrado
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/Carts"
+        "500":
+          description: Error Interno del Servidor
+    post:
+      summary: Crear carrito
+      tags:
+        - Carts
+      security: []
+      responses:
+        "200":
+          description: EL carrito ha sido creado exitosamente
+          content:
+            application/json:
+              schema:
+                  $ref: "#components/schemas/Carts"
+        "500":
+          description: Error Interno del Servidor
+  /api/carts/{cid}:
+    get:
+      summary : Buscar por id el carrito
+      tags: 
+        - Carts
+      security:
+        - cookieAuth: []
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: ID del carrito para solicitar
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: carrito encontrado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Carts"
+        "500":
+          description: Error Interno del Servidor
+    delete:
+      summary: Elimina todos los productos del carrito seleccionados por id.
+      tags:
+        - Carts
+      security:
+        - cookieAuth: []
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: ID del carrito para solicitar
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: Todos los productos fueron eliminados del carrito.
+        "500":
+          description: Error Interno del Servidor
+  /api/carts/{cid}/products/{pid}:
+    put:
+      summary: Agregue producto y actualice su cantidad si existe en el carrito
+      tags:
+        - Carts
+      security:
+        - cookieAuth: []
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: ID del carrito para solicitar
+        schema:
+          $type: String
+      - name: pid
+        in: path
+        required: true
+        description: ID del producto a solicitar
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: Se agregó un "producto" al carrito
+        "500":
+          description: Error Interno del Servidor
+    delete:
+      summary: Un producto por id se elimina de un carrito
+      tags:
+        - Carts
+      security:
+        - cookieAuth: []
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: ID del carrito para solicitar
+        schema:
+          $type: String
+      - name: pid
+        in: path
+        required: true
+        description: ID del producto para solicitar
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: Un producto fue eliminado exitosamente
+        "500":
+          description: Error Interno del Servidor
+  /api/carts/{cid}/purchase:
+    post:
+      summary: Se genera ticket de compra
+      tags:
+        - Carts
+      security: 
+        - cookieAuth: []
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: ID del carrito para solicitar
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: Su ticket se generó correctamente
+        "500":
+          description: Error Interno del Servidor
+
+components:
+  schemas:
+    Carts: 
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id generado automáticamente por mongoDB
+        products:
+          type: Array
+          description: Contiene productos añadidos
+      example:
+        _id: ObjectId(324h3556g7gf783)
+        products: [{
+          product: ObjectId(35436fas5668833g6),
+          quantity: 2
+        }]

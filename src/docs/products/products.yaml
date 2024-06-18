@@ -1,0 +1,169 @@
+paths:
+  /api/products/:
+    get:
+      summary : Obtiene todos los productos
+      tags: 
+        - Products
+      security:
+        - cookieAuth: []
+      responses:
+        "200":
+          description: Los productos se obtuvieron con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/Product"
+        "500":
+          description: Error interno del Servidor
+    post:
+      summary: Crear producto
+      tags: 
+        - Products
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/updateProduct"  
+      responses:
+        "200":
+          description: Producto creado exitosamente 
+        "500":
+          description: Error interno del Servidor
+  /api/products/{pid}:
+    get:
+      summary : Buscar por id un producto
+      tags: 
+        - Products
+      security:
+        - cookieAuth: []
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: ID del producto a solicitar
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: El producto fue encontrado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Product"
+    put:
+      summary: Actualizar campos de un producto pasado por id
+      tags:
+        - Products
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto a solicitar
+          schema:
+            $type: String
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/updateProduct"  
+      responses:
+        "200":
+          description: El producto se actualizó exitosamente
+        "500":
+          description: Error interno del Servidor
+    delete:
+      summary: Eliminar un producto por su id
+      tags:
+        - Products
+      security:
+        - cookieAuth: []
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: ID del producto a solicitar
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: El producto fue eliminado correctamente
+        "500":
+          description: Error interno del Servidor
+
+components:
+  schemas:
+    Product: 
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id generado automaticamente por MongoDB
+        title:
+          type: String
+          description: Nombre del producto es generado por el usuario
+        description: 
+          type: String
+          description: Descripcion del producto generado por el usuario
+        price:
+          type: Number
+          description: Precio del producto generado por el usuario
+        thumbnails:
+          type: String
+          description: Imagen del producto generado por el usuario
+        code:
+          type: String
+          description: Codigo del producto generado por el usuario
+        stock:
+          type: Number
+          description: Stock del producto generado por el usuario
+        owener:
+          type: String
+          description: El propietario lo genera el usuario que creó ese producto.
+      example:
+        _id: ObjectId('36436jc565745w9020t')
+        title: Alambrado
+        description: Cabernet Sauvignon
+        price: 3500
+        thumbnails: https://images.vivino.com/thumbs/nu85uiOyQiay0d_WLhYTNg_pb_x300.png
+        code: abc123456
+        stock: 20
+        owener: examplename@example.com
+  requestBodies:
+    updateProduct:
+      type: object
+      properties:
+        title:
+          type: String
+          description: Nombre del producto 
+        description: 
+          type: String
+          description: Descripcion del producto
+        price:
+          type: Number
+          description: Precio del Producto
+        thumbnails:
+          type: String
+          description: Foto del producto
+        code:
+          type: String
+          description: Codigo del producto
+        stock:
+          type: Number
+          description: Stock del producto
+        owener:
+          type: String
+          description: Propietario del producto
+      example:
+        title: "Alambrado"
+        description: "Cabernet Sauvignon"
+        price: "3500"
+        thumbnails: "https://images.vivino.com/thumbs/nu85uiOyQiay0d_WLhYTNg_pb_x300.png"
+        stock: "20"
