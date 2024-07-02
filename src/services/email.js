@@ -1,3 +1,4 @@
+//email.js
 const nodemailer = require('nodemailer');
 
 class EmailManager {

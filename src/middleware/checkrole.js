@@ -1,3 +1,4 @@
+// checkrole.js
 const jwt = require('jsonwebtoken');
 
 const checkUserRole = (allowedRoles) => (req, res, next) => {

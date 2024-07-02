@@ -1,3 +1,4 @@
+//views.router.js
 const express = require("express");
 const router = express.Router();
 const ViewsController = require("../controllers/view.controller.js");
@@ -18,6 +19,8 @@ router.get("/", viewsController.renderHome);
 router.get("/reset-password", viewsController.renderResetPassword);
 router.get("/password", viewsController.renderCambioPassword);
 router.get("/confirmacion-envio", viewsController.renderConfirmacion);
+
+router.get("/modiusers", checkUserRole(['admin']), viewsController.renderAdministrarUsuarios);
 
 module.exports = router;
 

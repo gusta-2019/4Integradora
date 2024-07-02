@@ -1,3 +1,4 @@
+// user.dto.js
 class UserDTO {
     constructor(firstName, lastName, role) {
         this.nombre = firstName;

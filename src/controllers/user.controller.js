@@ -1,3 +1,4 @@
+//user.controller.js
 const UserModel = require("../models/user.model.js");
 const CartModel = require("../models/cart.model.js");
 const jwt = require("jsonwebtoken");
@@ -88,13 +89,7 @@ class UserController {
         }
     }
 
-    // async profile(req, res) {
-    //     //Con DTO: 
-    //     const userDto = new UserDTO(req.user.first_name, req.user.last_name, req.user.role);
-    //     const isAdmin = req.user.role === 'admin';
-    //     res.render("profile", { user: userDto, isAdmin });
-    // }
-    async profile(req, res) {
+        async profile(req, res) {
         try {
             const isPremium = req.user.role === 'premium';
             const userDto = new UserDTO(req.user.first_name, req.user.last_name, req.user.role);
@@ -231,6 +226,37 @@ class UserController {
 
         } catch (error) {
             res.status(500).send("Error del servidor, Hector tendra gripe dos semanas mas");
+        }
+    }
+
+    async getAllUsers(req, res) {
+        try {
+            const users = await userRepository.findAll(); // Assuming a method findAll() in UserRepository
+            res.status(200).json(users);
+        } catch (error) {
+            console.error("Error al obtener todos los usuarios", error);
+            res.status(500).json({ error: "Error interno del servidor" });
+        }
+    }
+
+    async deleteInactiveUsers(req, res) {
+        try {
+            // Obtener usuarios inactivos que no han tenido conexión en los últimos 30 minutos
+            const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000);
+            const inactiveUsers = await UserModel.find({ last_connection: { $lt: thirtyMinutesAgo } });
+
+            // Eliminar usuarios inactivos
+            await UserModel.deleteMany({ last_connection: { $lt: thirtyMinutesAgo } });
+
+            // Enviar correo electrónico a cada usuario eliminado por inactividad
+            inactiveUsers.forEach(async (user) => {
+                await emailManager.sendInactiveAccountEmail(user.email);
+            });
+
+            res.status(200).json({ message: "Usuarios inactivos eliminados correctamente" });
+        } catch (error) {
+            console.error("Error al eliminar usuarios inactivos", error);
+            res.status(500).json({ error: "Error interno del servidor" });
         }
     }
 }

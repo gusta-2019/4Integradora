@@ -1,3 +1,4 @@
+// realtime.js
 const socket = io();
 const role = document.getElementById("role").textContent;
 const email = document.getElementById("email").textContent;

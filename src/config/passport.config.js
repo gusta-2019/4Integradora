@@ -1,3 +1,4 @@
+// passport.config.js
 const passport = require("passport");
 const jwt = require("passport-jwt");
 const JWTStrategy = jwt.Strategy;

@@ -1,9 +1,14 @@
+//user.router.js
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const UserController = require("../controllers/user.controller.js");
 
 const userController = new UserController();
+
+const ViewsController = require("../controllers/view.controller.js");
+const viewsController = new ViewsController();
+const checkUserRole = require("../middleware/checkrole.js");
 
 router.post("/register", userController.register);
 router.post("/login", userController.login);
@@ -67,6 +72,8 @@ router.post('/:uid/documents', upload.fields([
             res.status(500).send('Error interno del servidor');
         }
     });
+
+router.get("/administrar-usuarios", checkUserRole(['admin']), passport.authenticate('jwt', { session: false }), viewsController.renderAdministrarUsuarios);
 
 module.exports = router;
 

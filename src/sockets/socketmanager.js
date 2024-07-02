@@ -1,7 +1,10 @@
+// SocketManager.js
 const socket = require("socket.io");
 const ProductRepository = require("../repositories/product.repository.js");
 const productRepository = new ProductRepository(); 
 const MessageModel = require("../models/message.model.js");
+
+const UserModel = require("../models/user.model.js");
 
 class SocketManager {
     constructor(httpServer) {
@@ -31,11 +34,29 @@ class SocketManager {
                 const messages = await MessageModel.find();
                 socket.emit("message", messages);
             });
+
+            socket.on("administrarUsuarios", async () => {
+                if (socket.user && socket.user.role === 'admin') {
+                    const usuarios = await UserModel.find();
+                    socket.emit("usuarios", usuarios);
+                }
+            });
+
+            socket.on("eliminarUsuario", async (id) => {
+                await UserModel.findByIdAndDelete(id);
+                this.emitUpdatedUsers(socket);
+            });
+
         });
     }
 
     async emitUpdatedProducts(socket) {
         socket.emit("productos", await productRepository.obtenerProductos());
+    }
+
+    async emitUpdatedUsers(socket) {
+        const usuarios = await UserModel.find();
+        socket.emit("usuarios", usuarios);
     }
 }
 

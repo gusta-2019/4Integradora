@@ -1,6 +1,10 @@
+//view.controller.js
 const ProductModel = require("../models/product.model.js");
 const CartRepository = require("../repositories/cart.repository.js");
 const cartRepository = new CartRepository();
+
+// const UserRepository = require("../repositories/user.repository.js")
+// const userRepository = new UserRepository();
 
 class ViewsController {
     async renderProducts(req, res) {
@@ -123,6 +127,12 @@ class ViewsController {
 
     async renderConfirmacion(req, res) {
         res.render("confirmacion-envio");
+    }
+
+    async renderAdministrarUsuarios(req, res) {
+        // const users = await UserRepository.getAllUsers();
+
+        res.render("modiusers");
     }
 
 }

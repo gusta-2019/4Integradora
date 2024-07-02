@@ -1,3 +1,4 @@
+// ticket.repositry.js
 const TicketModel = require("../models/ticket.model.js");
 
 class TicketRepository {
